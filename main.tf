@@ -52,11 +52,12 @@ resource "azurerm_virtual_machine" "netframe_vm" {
   resource_group_name   = azurerm_resource_group.netframe_rg.name
   network_interface_ids = [azurerm_network_interface.netframe_nic.id]
   vm_size               = "Standard_DS1_v2"
-  admin_username        = "azureroot"
-  
+  admin_username = "azureuser"
+  disable_password_authentication = true
+
   admin_ssh_key {
-    username   = "azureroot"
-    public_key = file("~/.ssh/id_rsa.pub")  
+    username = "azureuser"
+    public_key = file("~/.ssh/id_rsa.pub")
   }
 
   storage_image_reference {
