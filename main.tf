@@ -80,7 +80,8 @@ resource "azurerm_virtual_machine" "netframe_vm" {
   os_profile_linux_config {
     disable_password_authentication = true
     ssh_keys {
-      path = azurerm_ssh_public_key.netframe_key.public_key
+      path     = "~/.ssh/id_rsa.pub"
+      key_data = azurerm_ssh_public_key.netframe_key.public_key
     }
   }
   tags = {
