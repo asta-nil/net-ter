@@ -41,9 +41,16 @@ resource "azurerm_network_interface" "netframe_nic" {
   }
 }
 
-resource "azurerm_network_interface_security_group_association" "netframe-con" {
+resource "azurerm_network_interface_security_group_association" "netframe_con" {
   network_interface_id = azurerm_network_interface.netframe_nic.id
   network_security_group_id = azurerm_network_security_group.netframe_sg.id
+}
+
+resource "azurerm_ssh_public_key" "netframe_key" {
+  name                = "danyil"
+  resource_group_name = azurerm_resource_group.netframe_rg.name
+  location            = "West Europe"
+  public_key          = file("~/.ssh/id_rsa.pub")
 }
 
 resource "azurerm_virtual_machine" "netframe_vm" {
