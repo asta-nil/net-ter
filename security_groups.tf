@@ -2,7 +2,9 @@ resource "azurerm_network_security_group" "netframe_sg" {
   name                = "netframe-sg"
   location            = azurerm_resource_group.netframe_rg.location
   resource_group_name = azurerm_resource_group.netframe_rg.name
+}
 
+resource "azurerm_network_security_rule" "allow-ssh" {
   security_rule {
     name                       = "SSH"
     priority                   = 1001
@@ -13,9 +15,7 @@ resource "azurerm_network_security_group" "netframe_sg" {
     destination_port_range     = "22"
     source_address_prefix      = "*"
     destination_address_prefix = "*"
-  }
-
-  tags = {
-    environment = "Production"
+    resource_group_name         = azurerm_resource_group.netframe_rg.name
+    network_security_group_name = azurerm_network_security_group.example.name
   }
 }
