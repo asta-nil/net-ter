@@ -46,19 +46,19 @@ resource "azurerm_network_interface_security_group_association" "netframe_con" {
   network_security_group_id = azurerm_network_security_group.netframe_sg.id
 }
 
+resource "azurerm_ssh_public_key" "netframe_key" {
+  name                = "key-vm"
+  resource_group_name = azurerm_resource_group.netframe_rg.name
+  location            = "West Europe"
+  public_key          = file("~/.ssh/id_rsa.pub")
+}
+
 resource "azurerm_virtual_machine" "netframe_vm" {
   name                  = "${var.prefix}-vm"
   location              = azurerm_resource_group.netframe_rg.location
   resource_group_name   = azurerm_resource_group.netframe_rg.name
-  network_interface_ids = [azurerm_network_interface.netframe_nic.id]
+  network_interface_ids = [azurerm_network_interface.netframe_nic.id] 
   vm_size               = "Standard_DS1_v2"
-  admin_username = "azureuser"
-  disable_password_authentication = true
-
-  admin_ssh_key {
-    username = "azureuser"
-    public_key = file("~/.ssh/id_rsa.pub")
-  }
 
   storage_image_reference {
     publisher = "Canonical"
@@ -75,10 +75,10 @@ resource "azurerm_virtual_machine" "netframe_vm" {
   os_profile {
     computer_name  = "hostname"
     admin_username = "testadmin"
-    admin_password = "Password1234!"
+    admin_ssh_key  = azurerm_ssh_public_key.netframe_key.public_key
   }
   os_profile_linux_config {
-    disable_password_authentication = false
+    disable_password_authentication = true
   }
   tags = {
     environment = "staging"
