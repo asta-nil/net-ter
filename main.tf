@@ -75,10 +75,13 @@ resource "azurerm_virtual_machine" "netframe_vm" {
   os_profile {
     computer_name  = "hostname"
     admin_username = "testadmin"
+    admin_password = "Password1234!"
   }
   os_profile_linux_config {
-    ssh_keys                        = azurerm_ssh_public_key.netframe_key.public_key
     disable_password_authentication = true
+    ssh_keys {
+      key_data = azurerm_ssh_public_key.netframe_key.public_key
+    }
   }
   tags = {
     environment = "staging"
