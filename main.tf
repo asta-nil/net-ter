@@ -75,9 +75,9 @@ resource "azurerm_virtual_machine" "netframe_vm" {
   os_profile {
     computer_name  = "hostname"
     admin_username = "testadmin"
-    ssh_keys       = azurerm_ssh_public_key.netframe_key.public_key
   }
   os_profile_linux_config {
+    ssh_keys                        = azurerm_ssh_public_key.netframe_key.public_key
     disable_password_authentication = true
   }
   tags = {
