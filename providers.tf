@@ -6,7 +6,7 @@ terraform {
     }
   }
   backend "azurerm" {
-    resource_group_name     = "cloud-shell-storage-westeurope"
+    resource_group_name     = "cloud-shell-storage-weseurope"
     storage_account_name    = "csb100320022982d2df"
     container_name          = "workspacecloudshellstoragewesteuropeb127"
     key                     = "hello-world"
