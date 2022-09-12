@@ -50,7 +50,7 @@ resource "azurerm_ssh_public_key" "netframe_key" {
   name                = "key-vm"
   resource_group_name = azurerm_resource_group.netframe_rg.name
   location            = "West Europe"
-  public_key          = file("~/.ssh/id_rsa.pub")
+  public_key          = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDV8ZJHhbwpk8DiL8zOgLIbVMpnc6LTuiaLwLvTXRHLy0iV75Np82Mhcga18lTRzaX8xtaa99BiEG33z/e8Czs/ru+2dRsfnrqB+qtPFhs5K2EuLM5/Sr6L0tmZCzH9pnAqxryqQ5VMOtIzc/JB5IWEqpElOkM5tittgOA1LnxOetimpXxjjGnOSZM9Z/frszlDqNzwbIQYzAeU7nL0DmlYZh2+JsnFmBaUzWrDafZMt/tMWoYFBukLyS+VzQl4RHuNMW/7suqTIZlQxaAtB3ojvq9bDd7LNygrAJPwisANK3z3qMAfjW9573SaA0yyki2xIcuHGNL7sWW5hpDF2KPqMgyb3QBg2RKu5xGPKs13vWbPk43uwU40VwIhcgKGQbIMuc4bB7B+n/pYWMiuFrqccK15ax5UUCEExOFCeM/4s0R9dy5mXnW1Jbcce+PKPVhCiyEmh1rnHoeF+8wJx7Uow0dcTTazADjXGmww7JC3THTrzrW5BAe8Frmndp66iLE= danyil@cc-8120-fa095d5f-84456567db-nmzhp"
 }
 
 resource "azurerm_virtual_machine" "netframe_vm" {
