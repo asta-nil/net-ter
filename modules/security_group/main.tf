@@ -1,4 +1,4 @@
-module "network security group" {
+module "network_security_group" {
   source  = "claranet/nsg/azurerm"
 
   name                = "netframe-sg"
@@ -19,4 +19,3 @@ resource "azurerm_network_security_rule" "allow-ssh" {
   resource_group_name         = azurerm_resource_group.netframe_rg.name
   network_security_group_name = azurerm_network_security_group.netframe_sg.name
 }
-
