@@ -27,7 +27,6 @@ jobs:
       - uses: hashicorp/setup-terraform@v2
       
       - name: Terraform Module Init
-        id: init
         run: cd modules/security_group \
              terraform init
 
