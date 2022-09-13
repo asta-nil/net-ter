@@ -43,7 +43,7 @@ resource "azurerm_network_interface" "netframe_nic" {
 
 resource "azurerm_network_interface_security_group_association" "netframe_con" {
   network_interface_id = azurerm_network_interface.netframe_nic.id
-  network_security_group_id = module.security_group
+  network_security_group_id = module.security_group.id
 }
 
 resource "azurerm_ssh_public_key" "netframe_key" {
