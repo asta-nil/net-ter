@@ -11,6 +11,7 @@ resource "azurerm_virtual_network" "netframe_net" {
 }
 
 module "subnet" {
+  source = "./modules/subnet"
   resource_group_name = azurerm_resource_group.netframe_rg.name
   virtual_network_name = azurerm_virtual_network.netframe_net.name
 }

@@ -9,11 +9,11 @@ variable "location" {
 }
 
 variable "subnet_id" {
-  type = number
+  type = string
   description = "Subnet id"
 }
 
 variable "public_ip_address_id" {
-  type = number
+  type = string
   description = "public ip of virtual machine"
 }
