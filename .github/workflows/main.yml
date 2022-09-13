@@ -26,9 +26,19 @@ jobs:
       - uses: actions/checkout@v3
       - uses: hashicorp/setup-terraform@v2
       
-      - name: Terraform Module Init
+      - name: Terraform Security Group Init
         run: |
             cd modules/security_group
+            terraform init
+        
+      - name: Terraform Subnet Init
+        run: |
+            cd modules/subnet
+            terraform init
+
+      - name: Terraform Network Interface Init
+        run: |
+            cd modules/network_interface
             terraform init
 
       - name: Terraform Init
