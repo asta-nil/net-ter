@@ -1,7 +1,7 @@
 resource "azurerm_network_interface" "netframe_nic" {
   name                = "${var.prefix}-nic"
   location            = var.location
-  resource_group_name = var.location
+  resource_group_name = var.resource_group_name
 
   ip_configuration {
     name                          = "private-ip-config"
