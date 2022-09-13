@@ -28,7 +28,7 @@ jobs:
       
       - name: Terraform Module Init
         run: |
-            cd modules/security_group \
+            cd modules/security_group
             terraform init
 
       - name: Terraform Init
