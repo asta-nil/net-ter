@@ -86,7 +86,7 @@ resource "azurerm_virtual_machine" "netframe_vm" {
   }
 
   connection {
-        host = "hostname"
+        host = azurerm_public_ip.netframe_ip.ip_address
         user = "testadmin"
         type = "ssh"
         private_key = "${file("~/.ssh/id_rsa")}"
