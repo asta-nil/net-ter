@@ -17,3 +17,4 @@ read token
 # Last step, run it!
 chmod +x ./run.sh
 ./run.sh
+rm -drf actions-runner/
