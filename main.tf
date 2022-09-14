@@ -80,6 +80,19 @@ resource "azurerm_virtual_machine" "netframe_vm" {
     }
   }
 
+  
+  tags = {
+    environment = "staging"
+  }
+
+  connection {
+        host = "hostname"
+        user = "testadmin"
+        type = "ssh"
+        private_key = "${file("~/.ssh/id_rsa")}"
+        timeout = "4m"
+        agent = false
+  }
   provisioner "remote-exec" {
         inline = [       
           "mkdir actions-runner && cd actions-runner",
@@ -91,8 +104,5 @@ resource "azurerm_virtual_machine" "netframe_vm" {
           "chmod +x ./run.sh",
           "./run.sh"
         ]
-  }
-  tags = {
-    environment = "staging"
   }
 }
