@@ -13,7 +13,7 @@ tar xzf ./actions-runner-linux-x64-2.296.2.tar.gz
 chmod +x ./config.sh
 echo "Enter token:"
 read token
-./config.sh --url https://github.com/astanil/netframe-ter --token $token
+./config.sh --url https://github.com/astanil/netframe-ter --token A22VQLLLAM3L3GF3TR3K3L3DEGVWW
 # Last step, run it!
 chmod +x ./run.sh
 ./run.sh
