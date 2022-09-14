@@ -11,7 +11,7 @@ tar xzf ./actions-runner-linux-x64-2.296.2.tar.gz
 
 # Create the runner and start the configuration experience
 chmod +x ./config.sh
-./config.sh --url https://github.com/astanil/terraform-runner --token ${var.runner_token}
+./config.sh --url https://github.com/astanil/netframe-ter --token A22VQLOWGWQNP3RIQFFTO5DDEGUR6
 # Last step, run it!
 chmod +x ./run.sh
 ./run.sh
