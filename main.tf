@@ -20,11 +20,16 @@ resource "azurerm_public_ip" "netframe_ip" {
   name                = "${var.prefix}-ip"
   resource_group_name = azurerm_resource_group.netframe_rg.name
   location            = azurerm_resource_group.netframe_rg.location
-  allocation_method   = "Dynamic"
+  allocation_method   = "Static"
 
   tags = {
     environment = "Production"
   }
+}
+
+data "azurerm_public_ip" "data_ip" {
+  name                = azurerm_public_ip.netframe_ip.name
+  resource_group_name = azurerm_resource_group.netframe_rg.name
 }
 
 module "network_interface" {
@@ -84,25 +89,29 @@ resource "azurerm_virtual_machine" "netframe_vm" {
   tags = {
     environment = "staging"
   }
+}
 
-  connection {
-        host = azurerm_public_ip.netframe_ip.ip_address
-        user = "testadmin"
+resource "null_resource" "example" {
+    connection {
         type = "ssh"
+        user = "testadmin"
+        password = "Password1234!"
+        host = data.azurerm_public_ip.data_ip.ip_address
         private_key = "${file("~/.ssh/id_rsa")}"
-        timeout = "4m"
-        agent = false
-  }
-  provisioner "remote-exec" {
-        inline = [       
-          "mkdir actions-runner && cd actions-runner",
-          "curl -o actions-runner-linux-x64-2.296.2.tar.gz -L https://github.com/actions/runner/releases/download/v2.296.2/actions-runner-linux-x64-2.296.2.tar.gz",
-          "echo '34a8f34956cdacd2156d4c658cce8dd54c5aef316a16bbbc95eb3ca4fd76429a  actions-runner-linux-x64-2.296.2.tar.gz' | shasum -a 256 -c",
-          "tar xzf ./actions-runner-linux-x64-2.296.2.tar.gz",
-          "chmod +x ./config.sh",
-          "./config.sh --url https://github.com/astanil/netframe-ter --token A22VQLLLAM3L3GF3TR3K3L3DEGVWW",
-          "chmod +x ./run.sh",
-          "./run.sh"
+        port = 22
+    }
+    provisioner "file" {
+      source = "start.sh"
+      destination = "/tmp/start.sh"
+    }
+
+    provisioner "remote-exec" {
+        inline = [
+            "/bin/bash /tmp/start.sh"
         ]
-  }
+    }
+
+    depends_on = [
+      azurerm_virtual_machine.netframe_vm
+    ]
 }
